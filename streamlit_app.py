@@ -44,36 +44,39 @@ if not st.session_state["logged_in"]:
 
 # Dashboard after login
 else:
-    st.title("Dashboard")
-    
-    # Option to switch between different pages (sections)
-    page = st.selectbox("Navigate to", ["Home", "Upload CSV", "Generate Design"])
+    # Sidebar menu with additional functionalities
+    st.sidebar.title("Menu")
+    menu_options = ["Main Page", "Feature 1", "Feature 2", "Logout"]
+    choice = st.sidebar.radio("Navigate", menu_options)
 
-    if page == "Home":
-        st.header("Home")
-        st.write("Welcome to the dashboard! Use the navigation menu to access different features.")
+    if choice == "Main Page":
+        st.title("Dashboard")
+        st.write("Welcome to the dashboard! You can upload a CSV file and generate a design.")
 
-    elif page == "Upload CSV":
-        st.header("Upload CSV")
+        # Option to switch between different models within the first page
+        model = st.selectbox("Select a model", ["Model A", "Model B", "Model C"])
+
+        # CSV file upload
         uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
         if uploaded_file is not None:
             data = pd.read_csv(uploaded_file)
             st.write("CSV file content:")
             st.dataframe(data)
 
-    elif page == "Generate Design":
-        st.header("Generate Design")
-
-        # Option to switch between different models within the first page
-        model = st.selectbox("Select a model", ["Model A", "Model B", "Model C"])
-
+        # Button to generate a design
         if st.button("Generate Design"):
             design_image = generate_design(model)
             st.image(design_image, caption=f"Generated Design using {model}")
 
-    # Logout option
-    if st.button("Logout"):
+    elif choice == "Feature 1":
+        st.title("Feature 1")
+        st.write("This is Feature 1. Add your content here.")
+
+    elif choice == "Feature 2":
+        st.title("Feature 2")
+        st.write("This is Feature 2. Add your content here.")
+
+    elif choice == "Logout":
         st.session_state["logged_in"] = False
         st.success("You have been logged out.")
         st.experimental_rerun()
-
