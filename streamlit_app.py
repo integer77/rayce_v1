@@ -14,7 +14,7 @@ from phidl import Device
 import antenna_class_single  # Ensure this module is accessible
 
 # Load the trained model
-model = load_model('rayce_v1/inverse_design_model.keras')
+model = load_model('inverse_design_model.keras')
 
 # Simulated user database
 users = {
