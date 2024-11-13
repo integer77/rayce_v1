@@ -8,3 +8,4 @@ tensorflow==2.15.0
 SQLAlchemy==1.4.15
 gunicorn==20.1.0
 matplotlib
+phidl
