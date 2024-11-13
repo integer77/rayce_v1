@@ -149,7 +149,7 @@ else:
             st.info("Please upload a CSV file to proceed.")
 
     elif choice == "Feature 1":
-        st.title("Feature 1")
+        st.title("Feature mrdka")
         st.write("This is Feature 1. Add your content here.")
 
     elif choice == "Feature 2":
