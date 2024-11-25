@@ -141,7 +141,7 @@ else:
 
     if choice == "Main Page":
         st.title("Dashboard")
-        st.write("Welcome to the dashboard! You can upload a CSV file and generate a design.")
+        st.write("You can upload a CSV file and generate a design.")
 
         # Option to switch between different models within the first page
         model_name = st.selectbox("Select a model", ["Model A", "Model B"])
