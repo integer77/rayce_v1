@@ -174,54 +174,43 @@ else:
                                 int(model_output[0][0]),  # size
                                 int(model_output[0][1]),  # frame_width
                                 int(model_output[0][2]),  # gap_size
-                                'top'  # gap_position
+                                int(model_output[0][3])  # gap_position
                             ]]
                         )
 
-                        # Generate design from model output
-                        design_image = generate_design(antenna)
-
-                        # Display the design image
-                        st.image(design_image, caption="Generated Resonator Design", use_column_width=True)
-
-                        # Button to download GDS file
-                        if st.button("Download GDS File"):
-                            gds_filename = create_gds_file(antenna)
-                            with open(gds_filename, 'rb') as f:
-                                gds_data = f.read()
-                            st.download_button(
-                                label="Download GDS File",
-                                data=gds_data,
-                                file_name='output.gds',
-                                mime='application/octet-stream'
-                            )
-
                     elif model_name == "Model B":
-                        # Create the bowtie instance from model output
-                        bowtie = antenna_class_bowtie.Bowtie(
-                            # Use model_output values appropriately
-                            length=int(model_output[0][0]),
-                            width=int(model_output[0][1]),
-                            gap=int(model_output[0][2])
+                        # Create the antenna instance from model output
+                        antenna = antenna_class_double.Resonator(
+                            resonators=[[
+                                # Use model_output values appropriately
+                                int(model_output[0][0]),  # size
+                                int(model_output[0][1]),  # frame_width
+                                int(model_output[0][2]),  # gap_size
+                                int(model_output[0][3]),  # gap_position
+                                int(model_output[1][0]),  # size
+                                int(model_output[1][1]),  # frame_width
+                                int(model_output[1][2]),  # gap_size
+                                int(model_output[1][3]),  # gap_position
+                            ]]
                         )
 
-                        # Generate bowtie design from model output
-                        design_image = generate_bowtie_design(bowtie)
+                    # Generate design from model output
+                    design_image = generate_design(antenna)
 
-                        # Display the design image
-                        st.image(design_image, caption="Generated Bowtie Design", use_column_width=True)
+                    # Display the design image
+                    st.image(design_image, caption="Generated Resonator Design", use_column_width=True)
 
-                        # Button to download GDS file
-                        if st.button("Download GDS File"):
-                            gds_filename = create_bowtie_gds_file(bowtie)
-                            with open(gds_filename, 'rb') as f:
-                                gds_data = f.read()
-                            st.download_button(
-                                label="Download GDS File",
-                                data=gds_data,
-                                file_name='bowtie_output.gds',
-                                mime='application/octet-stream'
-                            )
+                    # Button to download GDS file
+                    if st.button("Download GDS File"):
+                        gds_filename = create_gds_file(antenna)
+                        with open(gds_filename, 'rb') as f:
+                            gds_data = f.read()
+                        st.download_button(
+                            label="Download GDS File",
+                            data=gds_data,
+                            file_name='output.gds',
+                            mime='application/octet-stream'
+                        )
                 else:
                     st.error("Model could not be loaded. Please select a valid model.")
         else:
@@ -230,6 +219,42 @@ else:
     elif choice == "Bowtie resonance":
         st.title("Bowtie resonance")
         st.write("This is Feature 1. Add your content here.")
+
+                # Input for resonance frequency
+        resonance_thz = st.text_input("Enter resonance frequency (THz)", value="0.5")
+
+        if st.button("Generate Bowtie Design"):
+            try:
+            # Placeholder logic for generating bowtie parameters
+            # Replace this with actual model inference or calculation
+                length = float(resonance_thz) * 50  # Example calculation
+                width = float(resonance_thz) * 10   # Example calculation
+
+                # Generate a bowtie antenna object with the calculated parameters
+                bowtie = antenna_class_single.antenna_class_bowtie(
+                    length=int(length),
+                    width=int(width)
+                )
+
+                # Generate bowtie design image
+                design_image = generate_bowtie_design(bowtie)
+
+                # Display the design image
+                st.image(design_image, caption="Generated Bowtie Antenna Design", use_column_width=True)
+
+            # Button to download GDS file
+                if st.button("Download Bowtie GDS File"):
+                    gds_filename = create_bowtie_gds_file(bowtie)
+                        with open(gds_filename, 'rb') as f:
+                        gds_data = f.read()
+                    st.download_button(
+                        label="Download Bowtie GDS File",
+                        data=gds_data,
+                        file_name='bowtie_output.gds',
+                        mime='application/octet-stream'
+                    )
+            except ValueError:
+                st.error("Invalid resonance frequency. Please enter a valid numeric value.")
 
   # elif choice == "Feature 2":
   #      st.title("Feature 2")
