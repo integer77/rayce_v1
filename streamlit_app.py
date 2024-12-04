@@ -109,9 +109,9 @@ def create_bowtie_gds_file(bowtie):
 @st.cache_resource
 def load_model_by_name(model_name):
     """Function to load the model based on the model name."""
-    if model_name == "Model A":
+    if model_name == "Single resonator model":
         return load_model('models/model_a.keras', compile=False)
-    elif model_name == "Model B":
+    elif model_name == "Double resonator model":
         return load_model('models/model_b.keras', compile=False)
     else:
         st.error("Invalid model selected.")
@@ -139,8 +139,8 @@ else:
     menu_options = ["Main Page", "Feature 1", "Feature 2", "Logout"]
     choice = st.sidebar.radio("Navigate", menu_options)
 
-    if choice == "Main Page":
-        st.title("Dashboard")
+    if choice == "Split-ring resonator generation":
+        st.title("Split-ring resonator generation")
         st.write("You can upload a CSV file and generate a design.")
 
         # Option to switch between different models within the first page
@@ -227,13 +227,13 @@ else:
         else:
             st.info("Please upload a CSV file to proceed.")
 
-    elif choice == "Feature 1":
-        st.title("Feature 1")
+    elif choice == "Bowtie resonance":
+        st.title("Bowtie resonance")
         st.write("This is Feature 1. Add your content here.")
 
-    elif choice == "Feature 2":
-        st.title("Feature 2")
-        st.write("This is Feature 2. Add your content here.")
+  # elif choice == "Feature 2":
+  #      st.title("Feature 2")
+  #      st.write("This is Feature 2. Add your content here.")
 
     elif choice == "Logout":
         st.session_state["logged_in"] = False
