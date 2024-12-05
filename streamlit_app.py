@@ -109,9 +109,9 @@ def create_bowtie_gds_file(bowtie):
 @st.cache_resource
 def load_model_by_name(model_name):
     """Function to load the model based on the model name."""
-    if model_name == "Single resonator model":
+    if model_name == "Single split ring model":
         return load_model('models/inverse_design_model.keras', compile=False)
-    elif model_name == "Double resonator model":
+    elif model_name == "Double split ring model":
         return load_model('models/inverse_design_model.keras', compile=False)
     else:
         st.error("Invalid model selected.")
@@ -128,7 +128,7 @@ if not st.session_state["logged_in"]:
         if authenticate(username, password):
             st.session_state["logged_in"] = True
             st.success("Login successful!")
-            st.experimental_rerun()
+      #      st.experimental_rerun()
         else:
             st.error("Invalid username or password.")
 
