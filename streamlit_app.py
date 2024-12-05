@@ -149,6 +149,8 @@ else:
 
         # Load the selected model
         model = load_model_by_name(model_name)
+        st.write("Model loaded.")
+
 
         # CSV file upload
         uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
@@ -186,6 +188,7 @@ else:
                     # Preprocess the data for the model
                     df = df.T
                     data = df.values
+                    st.write(data)
                     # Make sure data is in the correct shape
                   #  data = data.reshape((1, -1))
                     model_output = model.predict(data)
