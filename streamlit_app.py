@@ -159,14 +159,26 @@ else:
   
                 # Plot the first two numeric columns as an example
                 numeric_columns = df.select_dtypes(include=['number']).columns
-                if len(numeric_columns) >= 2:
+                if len(numeric_columns) == 2:
                     ax.plot(df[numeric_columns[0]], df[numeric_columns[1]], label=f"{numeric_columns[0]} vs {numeric_columns[1]}")
                     ax.set_xlabel(numeric_columns[0])
                     ax.set_ylabel(numeric_columns[1])
                     ax.legend()
+                else:
+                    try:
+                        df_cleaned = df.copy()
+                        df_cleaned.iloc[:, 0] = df_cleaned.iloc[:, 0].str.extract(r'([\d.eE+-]+)').astype(float)
+                        df_cleaned.columns = ['X', 'Y']
+                        ax.plot(df_cleaned['X'], df_cleaned['Y'], label=f"{numeric_columns[0]} vs {numeric_columns[1]}")
+                        ax.set_xlabel(numeric_columns[0])
+                        ax.set_ylabel(numeric_columns[1])
+                        ax.legend()
+                    except:
+                        st.write("The CSV file does not have enough numeric columns to plot.")
+
+
                     st.pyplot(fig)
                 else:
-                    st.write("The CSV file does not have enough numeric columns to plot.")
 
             # Button to generate a design
             if st.button("Generate Design"):
