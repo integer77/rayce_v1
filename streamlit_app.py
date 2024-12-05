@@ -110,9 +110,9 @@ def create_bowtie_gds_file(bowtie):
 def load_model_by_name(model_name):
     """Function to load the model based on the model name."""
     if model_name == "Single resonator model":
-        return load_model('models/model_a.keras', compile=False)
+        return load_model('models/inverse_design_model.keras', compile=False)
     elif model_name == "Double resonator model":
-        return load_model('models/model_b.keras', compile=False)
+        return load_model('models/inverse_design_model.keras', compile=False)
     else:
         st.error("Invalid model selected.")
         return None
@@ -144,7 +144,7 @@ else:
         st.write("You can upload a CSV file and generate a design.")
 
         # Option to switch between different models within the first page
-        model_name = st.selectbox("Select a model", ["Model A", "Model B"])
+        model_name = st.selectbox("Select a model", ["Single split ring model", "Double split ring model"])
 
         # Load the selected model
         model = load_model_by_name(model_name)
@@ -166,7 +166,7 @@ else:
                     data = data.reshape((1, -1))
                     model_output = model.predict(data)
 
-                    if model_name == "Model A":
+                    if model_name == "Single split ring model":
                         # Create the antenna instance from model output
                         antenna = antenna_class_single.Resonator(
                             resonators=[[
@@ -178,7 +178,7 @@ else:
                             ]]
                         )
 
-                    elif model_name == "Model B":
+                    elif model_name == "Double split ring model":
                         # Create the antenna instance from model output
                         antenna = antenna_class_double.Resonator(
                             resonators=[[
