@@ -245,7 +245,7 @@ else:
             # Button to download GDS file
                 if st.button("Download Bowtie GDS File"):
                     gds_filename = create_bowtie_gds_file(bowtie)
-                        with open(gds_filename, 'rb') as f:
+                    with open(gds_filename, 'rb') as f:
                         gds_data = f.read()
                     st.download_button(
                         label="Download Bowtie GDS File",
