@@ -128,6 +128,7 @@ if not st.session_state["logged_in"]:
         if authenticate(username, password):
             st.session_state["logged_in"] = True
             st.success("Login successful!")
+            st.experimental_set_query_params()
       #      st.experimental_rerun()
         else:
             st.error("Invalid username or password.")
