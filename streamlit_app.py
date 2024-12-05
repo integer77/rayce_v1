@@ -164,6 +164,7 @@ else:
                     ax.set_xlabel(numeric_columns[0])
                     ax.set_ylabel(numeric_columns[1])
                     ax.legend()
+                    st.pyplot(fig)
                 else:
                     try:
                         df_cleaned = df.copy()
@@ -173,12 +174,10 @@ else:
                         ax.set_xlabel(numeric_columns[0])
                         ax.set_ylabel(numeric_columns[1])
                         ax.legend()
+                        st.pyplot(fig)
+
                     except:
-                        st.write("The CSV file does not have enough numeric columns to plot.")
-
-
-                    st.pyplot(fig)
-                else:
+                        st.write("The CSV file does not have enough numeric columns to plot."
 
             # Button to generate a design
             if st.button("Generate Design"):
