@@ -177,7 +177,7 @@ else:
                         st.pyplot(fig)
 
                     except:
-                        st.write("The CSV file does not have enough numeric columns to plot."
+                        st.write("The CSV file does not have enough numeric columns to plot.")
 
             # Button to generate a design
             if st.button("Generate Design"):
