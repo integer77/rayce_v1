@@ -168,11 +168,10 @@ else:
                     st.pyplot(fig)
                 else:
                     try:
-                        df_cleaned = df.copy()
-                        df_cleaned.iloc[:, 0] = df_cleaned.iloc[:, 0].str.strip('[]').astype(float)
-                        df_cleaned.columns = ['X', 'Y']
-                        st.write(df_cleaned.head())
-                        ax.plot(df_cleaned['X'], df_cleaned['Y'])
+                        df.iloc[:, 0] = df.iloc[:, 0].str.strip('[]').astype(float)
+                        df.columns = ['X', 'Y']
+                        st.write(df.head())
+                        ax.plot(df['X'], df['Y'])
                         ax.set_xlabel('Frequency [THz]')
                         ax.set_ylabel('T')
                         ax.legend()
