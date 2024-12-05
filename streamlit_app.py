@@ -160,20 +160,20 @@ else:
                 # Plot the first two numeric columns as an example
                 numeric_columns = df.select_dtypes(include=['number']).columns
                 if len(numeric_columns) == 2:
-                    ax.plot(df[numeric_columns[0]], df[numeric_columns[1]], label=f"{numeric_columns[0]} vs {numeric_columns[1]}")
-                    ax.set_xlabel(numeric_columns[0])
-                    ax.set_ylabel(numeric_columns[1])
+                    ax.plot(df[numeric_columns[0]], df[numeric_columns[1]])
+                    ax.set_xlabel('Frequency [THz]')
+                    ax.set_ylabel('T')
                     ax.legend()
                     st.pyplot(fig)
                 else:
                     try:
                         df_cleaned = df.copy()
-                        df_cleaned.iloc[:, 0] = df_cleaned.iloc[:, 0].str.extract(r'([\d.eE+-]+)').astype(float)
+                        df_cleaned.iloc[:, 0] = df_cleaned.iloc[:, 0].str.strip('[]').astype(float)
                         df_cleaned.columns = ['X', 'Y']
                         st.write(df_cleaned.head())
-                        ax.plot(df_cleaned['X'], df_cleaned['Y'], label=f"{numeric_columns[0]} vs {numeric_columns[1]}")
-                        ax.set_xlabel(numeric_columns[0])
-                        ax.set_ylabel(numeric_columns[1])
+                        ax.plot(df_cleaned['X'], df_cleaned['Y'])
+                        ax.set_xlabel('Frequency [THz]')
+                        ax.set_ylabel('T')
                         ax.legend()
                         st.pyplot(fig)
 
