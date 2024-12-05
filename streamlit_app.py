@@ -185,9 +185,10 @@ else:
             if st.button("Generate Design"):
                 if model is not None:
                     # Preprocess the data for the model
+                    df = df.T
                     data = df.values
                     # Make sure data is in the correct shape
-                    data = data.reshape((1, -1))
+                  #  data = data.reshape((1, -1))
                     model_output = model.predict(data)
 
                     if model_name == "Single split ring model":
