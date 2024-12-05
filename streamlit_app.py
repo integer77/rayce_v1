@@ -170,6 +170,7 @@ else:
                         df_cleaned = df.copy()
                         df_cleaned.iloc[:, 0] = df_cleaned.iloc[:, 0].str.extract(r'([\d.eE+-]+)').astype(float)
                         df_cleaned.columns = ['X', 'Y']
+                        st.write(df_cleaned.head())
                         ax.plot(df_cleaned['X'], df_cleaned['Y'], label=f"{numeric_columns[0]} vs {numeric_columns[1]}")
                         ax.set_xlabel(numeric_columns[0])
                         ax.set_ylabel(numeric_columns[1])
