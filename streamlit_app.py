@@ -152,10 +152,21 @@ else:
         # CSV file upload
         uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
         if uploaded_file is not None:
-            # Read and display the CSV file
+        # Read the CSV file
             df = pd.read_csv(uploaded_file)
-            st.write("CSV file content:")
-            st.dataframe(df)
+            if not df.select_dtypes(include=['number']).empty:
+                fig, ax = plt.subplots()
+  
+                # Plot the first two numeric columns as an example
+                numeric_columns = df.select_dtypes(include=['number']).columns
+                if len(numeric_columns) >= 2:
+                    ax.plot(df[numeric_columns[0]], df[numeric_columns[1]], label=f"{numeric_columns[0]} vs {numeric_columns[1]}")
+                    ax.set_xlabel(numeric_columns[0])
+                    ax.set_ylabel(numeric_columns[1])
+                    ax.legend()
+                    st.pyplot(fig)
+                else:
+                    st.write("The CSV file does not have enough numeric columns to plot.")
 
             # Button to generate a design
             if st.button("Generate Design"):
