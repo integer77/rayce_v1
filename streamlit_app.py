@@ -136,7 +136,7 @@ if not st.session_state["logged_in"]:
 else:
     # Sidebar menu with additional functionalities
     st.sidebar.title("Menu")
-    menu_options = ["Main Page", "Feature 1", "Feature 2", "Logout"]
+    menu_options = ["Split-ring resonator generation", "Bowtie resonance", "Logout"]
     choice = st.sidebar.radio("Navigate", menu_options)
 
     if choice == "Split-ring resonator generation":
@@ -263,4 +263,4 @@ else:
     elif choice == "Logout":
         st.session_state["logged_in"] = False
         st.success("You have been logged out.")
-        st.experimental_rerun()
+       # st.experimental_rerun()
