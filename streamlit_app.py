@@ -99,7 +99,6 @@ else:
         model = load_model_by_name(model_name)
         st.write("Model loaded.")
 
-
         # CSV file upload
         uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
         if uploaded_file is not None:
@@ -120,7 +119,6 @@ else:
                     try:
                         df.iloc[:, 0] = df.iloc[:, 0].str.strip('[]').astype(float)
                         df.columns = ['X', 'Y']
-                        st.write(df.head())
                         ax.plot(df['X'], df['Y'])
                         ax.set_xlabel('Frequency [THz]')
                         ax.set_ylabel('T')
@@ -138,7 +136,6 @@ else:
                     df = df.T
                     df.columns = [f'Transmission_{i}' for i in range(df.shape[1])]
                     data = df.values
-                    st.write(data)
                     model_output = model.predict(data)
 
                     if model_name == "Single split ring model":
