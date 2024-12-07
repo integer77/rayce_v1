@@ -191,13 +191,12 @@ else:
             # Ensure the design persists for download
             if "gds_data" in st.session_state:
                 # Allow GDS file generation and download
-                if st.button("Download GDS File 2"):
-                    st.download_button(
-                        label="Download GDS File",
-                        data=st.session_state["gds_data"],
-                        file_name="output.gds",
-                        mime="application/octet-stream"
-                    )
+                st.download_button(
+                    label="Download GDS File",
+                    data=st.session_state["gds_data"],
+                    file_name="output.gds",
+                    mime="application/octet-stream"
+                )
             else:
                 st.info("Please generate a design first.")
 
