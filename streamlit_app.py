@@ -198,9 +198,12 @@ else:
                         antenna = antenna_class_single.Resonator(
                             resonators=[[
                                 # Use model_output values appropriately
-                                int(model_output[0][0]),  # size
-                                int(model_output[0][1]),  # frame_width
-                                int(model_output[0][2]),  # gap_size
+                                50,
+                                4,
+                                3,
+                           #     int(model_output[0][0]),  # size
+                           #     int(model_output[0][1]),  # frame_width
+                           #     int(model_output[0][2]),  # gap_size
                            #     int(model_output[0][3])  # gap_position
                                 'top'
                             ]]
