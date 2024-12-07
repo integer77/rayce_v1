@@ -190,7 +190,7 @@ else:
             # Ensure the design persists
          #   if "antenna" in st.session_state:
                 # Allow GDS file generation and download
-             if st.button("Download GDS File"):
+            if st.button("Download GDS File"):
                 st.download_button(
                     label="Download GDS File",
                     data=gds_data,
