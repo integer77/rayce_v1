@@ -14,7 +14,7 @@ from phidl import Device
 import antenna_class_single  # Ensure this module is accessible
 import antenna_class_bowtie  # Import the Bowtie class module
 from io import BytesIO
-
+import tempfile
 
 # Simulated user database
 users = {
@@ -32,7 +32,7 @@ def authenticate(username, password):
         return users[username] == sha256(password.encode()).hexdigest()
     return False
 
-from io import BytesIO
+
 
 def create_gds_file(antenna):
     """Function to create GDS file from the antenna object."""
@@ -41,11 +41,10 @@ def create_gds_file(antenna):
         coords = antenna.create_resonator_polygon(size, frame_width, gap_size, gap_position)
         D.add_polygon(coords, layer=1)
     
-    # Save to an in-memory bytes buffer
-    gds_buffer = BytesIO()
-    D.write_gds(gds_buffer)
-    gds_buffer.seek(0)  # Reset buffer position to the start
-    return gds_buffer.getvalue()  # Return the binary content of the GDS file
+    # Use a temporary file to store the GDS file
+    temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".gds")
+    D.write_gds(temp_file.name)
+    return temp_file.name  # Return the temporary file path
 
 
 def create_bowtie_gds_file(bowtie):
