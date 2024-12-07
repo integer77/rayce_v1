@@ -183,8 +183,8 @@ else:
 
                     # Display the design image
                     st.image(design_image, caption="Generated Resonator Design", use_column_width=True)
-                    st.session_state["antenna"] = antenna
-                    gds_data = create_gds_file(st.session_state["antenna"])
+                #    st.session_state["antenna"] = antenna
+                    gds_data = create_gds_file(antenna)
 
 
             # Ensure the design persists
