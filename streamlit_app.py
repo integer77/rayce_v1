@@ -184,9 +184,14 @@ else:
                         gds_filename = create_gds_file(antenna)
                         with open(gds_filename, 'rb') as f:
                             gds_data = f.read()
+                        # Store GDS data in session state
+                        st.session_state["gds_data"] = gds_data
+                    
+                    # Display the download button if GDS data exists
+                    if "gds_data" in st.session_state:
                         st.download_button(
                             label="Download GDS File",
-                            data=gds_data,
+                            data=st.session_state["gds_data"],
                             file_name='output.gds',
                             mime='application/octet-stream'
                         )
