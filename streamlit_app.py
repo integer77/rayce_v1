@@ -156,7 +156,7 @@ else:
         uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
         if uploaded_file is not None:
         # Read the CSV file
-            df = pd.read_csv(uploaded_file)
+            df = pd.read_csv(file, index_col=0, header=None)
             if not df.select_dtypes(include=['number']).empty:
                 fig, ax = plt.subplots()
   
@@ -187,10 +187,9 @@ else:
                 if model is not None:
                     # Preprocess the data for the model
                     df = df.T
+                    df.columns = [f'Transmission_{i}' for i in range(df.shape[1])]
                     data = df.values
                     st.write(data)
-                    # Make sure data is in the correct shape
-                  #  data = data.reshape((1, -1))
                     model_output = model.predict(data)
 
                     if model_name == "Single split ring model":
