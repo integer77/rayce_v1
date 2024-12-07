@@ -30,58 +30,6 @@ def authenticate(username, password):
         return users[username] == sha256(password.encode()).hexdigest()
     return False
 
-def generate_design(antenna):
-    """Function to generate a design based on the antenna object."""
-    canvas_size = 100
-    canvas = np.zeros((canvas_size, canvas_size))
-    center = canvas_size // 2
-
-    for size, frame_width, gap_size, gap_position in antenna.resonators:
-        # Create resonator matrix with a gap
-        resonator_matrix = antenna.create_resonator_matrix_with_gap(size, frame_width, gap_size, gap_position)
-        
-        # Calculate top-left corner of the resonator
-        start_x = center - size // 2
-        start_y = center - size // 2
-        
-        # Place the resonator matrix onto the canvas
-        canvas[start_x:start_x+size, start_y:start_y+size] = np.maximum(canvas[start_x:start_x+size, start_y:start_y+size], resonator_matrix)
-    
-    # Plotting
-    fig, ax = plt.subplots()
-    ax.imshow(canvas, cmap='gray')
-    ax.set_title("Generated Resonator Design")
-    ax.axis('off')
-    buf = io.BytesIO()
-    plt.savefig(buf, format='png', bbox_inches='tight', pad_inches=0)
-    buf.seek(0)
-    plt.close(fig)
-    return buf
-
-def generate_bowtie_design(bowtie):
-    """Function to generate a design based on the bowtie object."""
-    canvas_size = 100
-    canvas = np.zeros((canvas_size, canvas_size))
-
-    # Generate the bowtie matrix
-    bowtie_matrix = bowtie.create_bowtie_matrix()
-
-    # Place the bowtie matrix onto the canvas
-    start_x = (canvas_size - bowtie_matrix.shape[0]) // 2
-    start_y = (canvas_size - bowtie_matrix.shape[1]) // 2
-    canvas[start_x:start_x+bowtie_matrix.shape[0], start_y:start_y+bowtie_matrix.shape[1]] = bowtie_matrix
-
-    # Plotting
-    fig, ax = plt.subplots()
-    ax.imshow(canvas, cmap='gray')
-    ax.set_title("Generated Bowtie Design")
-    ax.axis('off')
-    buf = io.BytesIO()
-    plt.savefig(buf, format='png', bbox_inches='tight', pad_inches=0)
-    buf.seek(0)
-    plt.close(fig)
-    return buf
-
 def create_gds_file(antenna):
     """Function to create GDS file from the antenna object."""
     D = Device('SplitRingResonators')
