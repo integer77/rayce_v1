@@ -185,6 +185,7 @@ else:
                     st.image(design_image, caption="Generated Resonator Design", use_column_width=True)
                     st.session_state["antenna"] = antenna
 
+
                 # Ensure the design persists
                 if "antenna" in st.session_state:
                     # Display the design (replace with your plotting method)
@@ -203,10 +204,6 @@ else:
                 else:
                     st.info("Please generate a design first.")
 
-
-
-                else:
-                    st.error("Model could not be loaded. Please select a valid model.")
         else:
             st.info("Please upload a CSV file to proceed.")
 
