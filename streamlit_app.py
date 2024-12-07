@@ -110,9 +110,9 @@ def create_bowtie_gds_file(bowtie):
 def load_model_by_name(model_name):
     """Function to load the model based on the model name."""
     if model_name == "Single split ring model":
-        return load_model('models/inverse_design_model.keras', compile=False)
+        return load_model('models/inverse_design_model.h5', compile=False)
     elif model_name == "Double split ring model":
-        return load_model('models/inverse_design_model.keras', compile=False)
+        return load_model('models/inverse_design_model.h5', compile=False)
     else:
         st.error("Invalid model selected.")
         return None
