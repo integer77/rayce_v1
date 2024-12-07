@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 from phidl import Device
 import phidl.geometry as pg
 import io 
+from io import BytesIO
+
 
 class Resonator:
     def __init__(self, num_resonators=1, max_size=50, resonators=None):
