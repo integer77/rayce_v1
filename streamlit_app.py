@@ -13,6 +13,8 @@ from keras.models import load_model
 from phidl import Device
 import antenna_class_single  # Ensure this module is accessible
 import antenna_class_bowtie  # Import the Bowtie class module
+from io import BytesIO
+
 
 # Simulated user database
 users = {
@@ -30,6 +32,8 @@ def authenticate(username, password):
         return users[username] == sha256(password.encode()).hexdigest()
     return False
 
+from io import BytesIO
+
 def create_gds_file(antenna):
     """Function to create GDS file from the antenna object."""
     D = Device('SplitRingResonators')
@@ -37,10 +41,12 @@ def create_gds_file(antenna):
         coords = antenna.create_resonator_polygon(size, frame_width, gap_size, gap_position)
         D.add_polygon(coords, layer=1)
     
-    # Save to a temporary file
-    gds_filename = 'output.gds'
-    D.write_gds(gds_filename)
-    return gds_filename
+    # Save to an in-memory bytes buffer
+    gds_buffer = BytesIO()
+    D.write_gds(gds_buffer)
+    gds_buffer.seek(0)  # Reset buffer position to the start
+    return gds_buffer.getvalue()  # Return the binary content of the GDS file
+
 
 def create_bowtie_gds_file(bowtie):
     """Function to create GDS file from the bowtie object."""
@@ -179,22 +185,18 @@ else:
                     # Display the design image
                     st.image(design_image, caption="Generated Resonator Design", use_column_width=True)
 
-                    # Button to download GDS file
                     if st.button("Download GDS File"):
-                        gds_filename = create_gds_file(antenna)
-                        with open(gds_filename, 'rb') as f:
-                            gds_data = f.read()
-                        # Store GDS data in session state
-                        st.session_state["gds_data"] = gds_data
-                    
-                    # Display the download button if GDS data exists
-                    if "gds_data" in st.session_state:
+                        # Generate the GDS file as binary data
+                        gds_data = create_gds_file(antenna)
+                        
+                        # Display the download button with the binary GDS data
                         st.download_button(
                             label="Download GDS File",
-                            data=st.session_state["gds_data"],
+                            data=gds_data,
                             file_name='output.gds',
                             mime='application/octet-stream'
                         )
+
                 else:
                     st.error("Model could not be loaded. Please select a valid model.")
         else:
