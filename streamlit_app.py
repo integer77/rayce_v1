@@ -188,17 +188,17 @@ else:
 
 
             # Ensure the design persists
-            if "antenna" in st.session_state:
+         #   if "antenna" in st.session_state:
                 # Allow GDS file generation and download
-                 if st.button("Download GDS File"):
-                    st.download_button(
-                        label="Download GDS File",
-                        data=gds_data,
-                        file_name="output.gds",
-                        mime="application/octet-stream"
+             if st.button("Download GDS File"):
+                st.download_button(
+                    label="Download GDS File",
+                    data=gds_data,
+                    file_name="output.gds",
+                    mime="application/octet-stream"
                     )
-            else:
-                st.info("Please generate a design first.")
+    #        else:
+     #           st.info("Please generate a design first.")
 
         else:
             st.info("Please upload a CSV file to proceed.")
