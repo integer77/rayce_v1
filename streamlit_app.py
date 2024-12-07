@@ -51,6 +51,8 @@ def create_bowtie_gds_file(bowtie):
     # Save to a temporary file
     gds_filename = 'bowtie_output.gds'
     D.write_gds(gds_filename)
+    st.write("Ty mrdko!")
+
     return gds_filename
 
 # Function to load the model based on the selected model name
