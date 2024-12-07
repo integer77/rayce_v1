@@ -186,20 +186,22 @@ else:
 
                     # Generate and download GDS file
                     if st.button("Generate and Download GDS File"):
-                        # Generate the GDS file data
-                        gds_data = create_gds_file(antenna)
+                        # Generate the GDS file and store its path
+                        gds_file_path = create_gds_file(antenna)
                         
-                        # Store the GDS file data in session state
-                        st.session_state["gds_data"] = gds_data
+                        # Store the path in session state to ensure it persists
+                        st.session_state["gds_file_path"] = gds_file_path
                     
-                    # Display the download button if GDS data exists in session state
-                    if "gds_data" in st.session_state:
-                        st.download_button(
-                            label="Download GDS File",
-                            data=st.session_state["gds_data"],
-                            file_name="output.gds",
-                            mime="application/octet-stream"
-                        )
+                    # Show the download button if the file exists in session state
+                    if "gds_file_path" in st.session_state:
+                        with open(st.session_state["gds_file_path"], "rb") as gds_file:
+                            st.download_button(
+                                label="Download GDS File",
+                                data=gds_file,
+                                file_name="output.gds",
+                                mime="application/octet-stream"
+                            )
+
 
 
                 else:
