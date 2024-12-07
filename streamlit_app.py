@@ -184,21 +184,21 @@ else:
                     # Display the design image
                     st.image(design_image, caption="Generated Resonator Design", use_column_width=True)
                     st.session_state["antenna"] = antenna
+                    gds_data = create_gds_file(st.session_state["antenna"])
 
 
-                # Ensure the design persists
-                if "antenna" in st.session_state:
-                    # Allow GDS file generation and download
-                    if st.button("Download GDS File"):
-                        gds_data = create_gds_file(st.session_state["antenna"])
-                        st.download_button(
-                            label="Download GDS File",
-                            data=gds_data,
-                            file_name="output.gds",
-                            mime="application/octet-stream"
-                        )
-                else:
-                    st.info("Please generate a design first.")
+            # Ensure the design persists
+            if "antenna" in st.session_state:
+                # Allow GDS file generation and download
+                 if st.button("Download GDS File"):
+                    st.download_button(
+                        label="Download GDS File",
+                        data=gds_data,
+                        file_name="output.gds",
+                        mime="application/octet-stream"
+                    )
+            else:
+                st.info("Please generate a design first.")
 
         else:
             st.info("Please upload a CSV file to proceed.")
