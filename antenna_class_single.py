@@ -193,8 +193,9 @@ class Resonator:
         
         # Plotting
         fig, ax = plt.subplots()
+        canvas = 1 - canvas
         ax.imshow(canvas, cmap='gray')
-        ax.set_title("Generated Resonator Design")
+      #  ax.set_title("Generated Resonator Design")
         ax.axis('off')
         buf = io.BytesIO()
         plt.savefig(buf, format='png', bbox_inches='tight', pad_inches=0)
