@@ -226,7 +226,8 @@ else:
                         )
 
                     # Generate design from model output
-                    design_image = generate_design(antenna)
+                 #   design_image = generate_design(antenna)
+                    design_image = antenna.plot_concentric_antenna(100)
 
                     # Display the design image
                     st.image(design_image, caption="Generated Resonator Design", use_column_width=True)
