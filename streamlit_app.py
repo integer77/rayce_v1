@@ -177,6 +177,7 @@ else:
                         ax.set_xlabel('Frequency [THz]')
                         ax.set_ylabel('T')
                         ax.legend()
+                        df = df.set_index('X')
                         st.pyplot(fig)
 
                     except:
