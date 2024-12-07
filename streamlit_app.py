@@ -188,10 +188,6 @@ else:
 
                 # Ensure the design persists
                 if "antenna" in st.session_state:
-                    # Display the design (replace with your plotting method)
-                    design_image = st.session_state["antenna"].plot_concentric_antenna(100)
-                    st.image(design_image, caption="Generated Resonator Design", use_column_width=True)
-                
                     # Allow GDS file generation and download
                     if st.button("Download GDS File"):
                         gds_data = create_gds_file(st.session_state["antenna"])
