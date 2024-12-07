@@ -185,17 +185,23 @@ else:
                     # Display the design image
                     st.image(design_image, caption="Generated Resonator Design", use_column_width=True)
 
-                    if st.button("Download GDS File"):
-                        # Generate the GDS file as binary data
+                    # Generate and download GDS file
+                    if st.button("Generate and Download GDS File"):
+                        # Generate the GDS file data
                         gds_data = create_gds_file(antenna)
                         
-                        # Display the download button with the binary GDS data
+                        # Store the GDS file data in session state
+                        st.session_state["gds_data"] = gds_data
+                    
+                    # Display the download button if GDS data exists in session state
+                    if "gds_data" in st.session_state:
                         st.download_button(
                             label="Download GDS File",
-                            data=gds_data,
-                            file_name='output.gds',
-                            mime='application/octet-stream'
+                            data=st.session_state["gds_data"],
+                            file_name="output.gds",
+                            mime="application/octet-stream"
                         )
+
 
                 else:
                     st.error("Model could not be loaded. Please select a valid model.")
