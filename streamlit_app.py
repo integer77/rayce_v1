@@ -156,7 +156,7 @@ else:
         uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
         if uploaded_file is not None:
         # Read the CSV file
-            df = pd.read_csv(uploaded_file, index_col=0, header=None)
+            df = pd.read_csv(uploaded_file, header=None)
             if not df.select_dtypes(include=['number']).empty:
                 fig, ax = plt.subplots()
   
