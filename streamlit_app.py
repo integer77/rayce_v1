@@ -201,7 +201,8 @@ else:
                                 int(model_output[0][0]),  # size
                                 int(model_output[0][1]),  # frame_width
                                 int(model_output[0][2]),  # gap_size
-                                int(model_output[0][3])  # gap_position
+                           #     int(model_output[0][3])  # gap_position
+                                'top'
                             ]]
                         )
 
