@@ -2,6 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from phidl import Device
 import phidl.geometry as pg
+import io 
+from io import BytesIO
+
 
 class Resonator:
     def __init__(self, num_resonators=1, max_size=50, resonators=None):
@@ -191,7 +194,13 @@ class Resonator:
             canvas[start_x:start_x+size, start_y:start_y+size] = np.maximum(canvas[start_x:start_x+size, start_y:start_y+size], resonator_matrix)
         
         # Plotting
-        plt.figure(figsize=(6, 6))
-        plt.imshow(canvas, cmap='gray')
-        plt.axis('off')
-        plt.show()
+        fig, ax = plt.subplots()
+        canvas = 1 - canvas
+        ax.imshow(canvas, cmap='gray')
+      #  ax.set_title("Generated Resonator Design")
+        ax.axis('off')
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', bbox_inches='tight', pad_inches=0)
+        buf.seek(0)
+        plt.close(fig)
+        return buf
